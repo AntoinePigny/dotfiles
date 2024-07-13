@@ -1,0 +1,170 @@
+#:schema https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/schema.json
+
+version = 2
+console_title_template = '{{if .Root}}(Admin) {{end}}{{.Folder}}'
+[palette]
+  indigo = '#957FEF'
+  coral = '#F6828C'
+  yellow = '#FFBB00'
+  celadon = '#8CC7A1'
+  gray-black = '#242424'
+
+[[blocks]]
+  type = 'rprompt'
+  alignment = 'right'
+  overflow = 'hidden'
+
+  [[blocks.segments]]
+    type = "ytm"
+    style = "plain"
+    foreground = "p:coral"
+    background = "transparent"
+
+    [properties]
+      playing_icon = " "
+      paused_icon = " "
+      stopped_icon = " "
+
+  [[blocks.segments]]
+    type = "node"
+    style = "plain"
+    foreground = "p:celadon"
+    background = "transparent"
+    fetch_package_manager = true
+    template = " {{ .Full }} {{ if .PackageManagerIcon }}{{ .PackageManagerIcon }}{{ end }}"
+
+  [[blocks.segments]]
+    type = "react"
+    style = "plain"
+    foreground = "p:indigo"
+    template = " {{ .Full }}"
+
+  [[blocks.segments]]
+    type = 'executiontime'
+    style = 'plain'
+    foreground = 'p:yellow'
+    background = 'transparent'
+    template = '{{ .FormattedMs }}'
+
+    [blocks.segments.properties]
+      threshold = 3000
+      style = 'round'
+
+
+
+[[blocks]]
+  type = 'prompt'
+  alignment = 'left'
+  newline = true
+
+  [[blocks.segments]]
+    type = 'root'
+    style = 'powerline'
+    powerline_symbol = ''
+    template = ''
+    background = '#f1184c'
+    foreground = 'p:gray-black'
+    Text = ''
+    Duration = 0
+    NameLength = 0
+
+  [[blocks.segments]]
+    type = 'os'
+    style = 'plain'
+    template = '{{.Icon}} '
+    background = 'transparent'
+    foreground = 'p:celadon'
+    Text = ''
+    Duration = 0
+    NameLength = 0
+
+  [[blocks.segments]]
+    type = 'time'
+    style = 'powerline'
+    powerline_symbol = ''
+    template = '{{ .CurrentDate | date .Format }} '
+    background = 'p:gray-black'
+    foreground = '#FFBB00'
+    Text = ''
+    Duration = 0
+    NameLength = 0
+
+    [blocks.segments.properties]
+      time_format = '15:04:05'
+
+  [[blocks.segments]]
+    type = 'path'
+    style = 'powerline'
+    powerline_symbol = ''
+    template = ' {{ .Path }} '
+    background = 'p:gray-black'
+    foreground = 'p:yellow'
+    Text = ''
+    Duration = 0
+    NameLength = 0
+
+    [blocks.segments.properties]
+      folder_separator_icon = '/'
+      style = 'full'
+
+  [[blocks.segments]]
+    type = 'git'
+    style = 'powerline'
+    powerline_symbol = ''
+    template = '{{ .UpstreamIcon }}{{ .HEAD }}{{ if .Staging.Changed }}  {{ .Staging.String }}{{ end }}{{ if and (.Working.Changed) (.Staging.Changed) }} |{{ end }}{{ if .Working.Changed }}  {{ .Working.String }}{{ end }}{{ if gt .StashCount 0 }}  {{ .StashCount }}{{ end }} '
+    background = 'p:gray-black'
+    foreground = '#3A86FF'
+    Text = ''
+    Duration = 0
+    NameLength = 0
+
+    [blocks.segments.properties]
+      fetch_stash_count = true
+      fetch_status = true
+      fetch_upstream_icon = true
+
+  [[blocks.segments]]
+    type = 'dotnet'
+    style = 'powerline'
+    powerline_symbol = ''
+    template = '  {{ if .Unsupported }}{{ else }}{{ .Full }}{{ end }} '
+    background = '#0184bc'
+    foreground = '#ffffff'
+    Text = ''
+    Duration = 0
+    NameLength = 0
+
+  [[blocks.segments]]
+    type = 'status'
+    style = 'powerline'
+    powerline_symbol = ''
+    background_templates = ['{{ if gt .Code 0 }}#f1184c{{ end }}']
+    template = '  '
+    background = '#33DD2D'
+    foreground = 'p:gray-black'
+    Text = ''
+    Duration = 0
+    NameLength = 0
+
+[[blocks]]
+  type = 'prompt'
+  alignment = 'left'
+  newline = true
+
+  [[blocks.segments]]
+    type = 'text'
+    style = 'plain'
+    template = '➜ '
+    foreground = 'p:celadon'
+    Text = ''
+    Duration = 0
+    NameLength = 0
+
+[transient_prompt]
+  template = '➜ '
+  background = 'transparent'
+  foreground_templates = [
+    '{{ if gt .Code 0 }}p:coral{{ else }}p:celadon{{ end }}',
+  ]
+
+
